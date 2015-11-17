@@ -25,11 +25,6 @@ $ ->
   potatoTick = ->
   	modifier = 0
   	for type in upgradeTypes
-  		if type == "farm"
-  			modifier += potatoUpgrades[type]*upgradeCooficients[type]
-  		if type == "factory"
-  			modifier += potatoUpgrades[type]*upgradeCooficients[type]
-  		if type == "kappa"
   			modifier += potatoUpgrades[type]*upgradeCooficients[type]
   	potatoCount += modifier
 

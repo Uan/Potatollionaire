@@ -32,15 +32,7 @@
       modifier = 0;
       for (i = 0, len = upgradeTypes.length; i < len; i++) {
         type = upgradeTypes[i];
-        if (type === "farm") {
-          modifier += potatoUpgrades[type] * upgradeCooficients[type];
-        }
-        if (type === "factory") {
-          modifier += potatoUpgrades[type] * upgradeCooficients[type];
-        }
-        if (type === "kappa") {
-          modifier += potatoUpgrades[type] * upgradeCooficients[type];
-        }
+        modifier += potatoUpgrades[type] * upgradeCooficients[type];
       }
       return potatoCount += modifier;
     };
