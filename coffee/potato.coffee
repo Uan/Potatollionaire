@@ -9,6 +9,7 @@ $ ->
   potatoGet  = ->
   	potatoCount += 1
   	console.log potatoCount
+  	$( "#label").text("Potatoes: #{potatoCount}")
 
   potatoTick = ->
   	modifier = 0
@@ -20,9 +21,11 @@ $ ->
   		if type == "kappa"
   			modifier += potatoUpgrades[type]*10
   	potatoCount += modifier
+  	$( "#label").text("Potatoes: #{potatoCount}")
+  	$( "#ps").text("Potatoes/second: #{modifier}")
   	console.log potatoCount
 
-  setInterval (potatoTick), 2000
+  setInterval (potatoTick), 1000
 
   upgradeInsert = (type) ->
     potatoUpgrades[type] = potatoUpgrades[type]+=1
@@ -36,3 +39,4 @@ $ ->
     upgradeInsert("kappa"))
   $( "#potatoGet" ).on( "click", ->
     potatoGet())
+

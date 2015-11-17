@@ -11,7 +11,8 @@
     }
     potatoGet = function() {
       potatoCount += 1;
-      return console.log(potatoCount);
+      console.log(potatoCount);
+      return $("#label").text("Potatoes: " + potatoCount);
     };
     potatoTick = function() {
       var j, len1, modifier;
@@ -29,9 +30,11 @@
         }
       }
       potatoCount += modifier;
+      $("#label").text("Potatoes: " + potatoCount);
+      $("#ps").text("Potatoes/second: " + modifier);
       return console.log(potatoCount);
     };
-    setInterval(potatoTick, 2000);
+    setInterval(potatoTick, 1000);
     upgradeInsert = function(type) {
       potatoUpgrades[type] = potatoUpgrades[type] += 1;
       return console.log(potatoUpgrades[type]);
