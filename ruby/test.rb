@@ -8,7 +8,7 @@ end
 paths = Dir['../js/*']
 stuff = "<!--start-->\n"
 paths.each do |i|
-  stuff += "<script type='text/javascript' src='#{i}'></script>\n"
+  stuff += "<script type='text/javascript' src='#{i[3..-1]}'></script>\n"
 end
 stuff += "<!--end-->\n"
 IO.write('../index.html', File.open('../index.html') do |_f|
