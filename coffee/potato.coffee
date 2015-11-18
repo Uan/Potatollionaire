@@ -33,7 +33,7 @@ $ ->
   	potatoCount += modifier
 
   uiUpdate = ->
-  	$( "#label").text("Potatoes: #{potatoCount}")
+  	$( "#label").text("Potatoes: #{countConvert(potatoCount)}")
   	$( "#ps").text("Potatoes/second: #{modifier}")
    
   setInterval (potatoTick), 1000
@@ -48,7 +48,14 @@ $ ->
       resCount = potatoUpgrades[type]
       $( "##{type}Count").text("#{type}: #{resCount}")
       buttonValues()
-    
+  countConvert = (number) ->
+    if number >= 1000000000
+      return number/1000000000 + "B"
+    else if number >= 1000000
+      return number/1000000 + "M" 
+    else if number >= 1000
+      return number/1000 + "K"
+    else return number
   buttonValues = ->
     $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{upgradeCosts["farm"]}")
     $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{upgradeCosts["factory"]}")
