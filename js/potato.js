@@ -51,6 +51,7 @@
         potatoUpgrades[type] = potatoUpgrades[type] += 1;
         potatoCount -= upgradeCosts[type];
         upgradeCosts[type] *= 2;
+        upgradeCooficients[type] *= 1.5;
         resCount = potatoUpgrades[type];
         $("#" + type + "Count").text(type + ": " + resCount);
         return buttonValues();
