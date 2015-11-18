@@ -48,14 +48,18 @@ $ ->
       resCount = potatoUpgrades[type]
       $( "##{type}Count").text("#{type}: #{resCount}")
       buttonValues()
+
+  roundToTwo = (number) ->
+    return Math.round(number*10)/10
+
   countConvert = (number) ->
     if number >= 1000000000
-      return number/1000000000 + "B"
+      return roundToTwo(number/1000000000) + "B"
     else if number >= 1000000
-      return number/1000000 + "M" 
+      return roundToTwo(number/1000000) + "M" 
     else if number >= 1000
-      return number/1000 + "K"
-    else return number
+      return roundToTwo(number/1000) + "K"
+    else return roundToTwo(number)
   buttonValues = ->
     $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{upgradeCosts["farm"]}")
     $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{upgradeCosts["factory"]}")
@@ -77,4 +81,4 @@ $ ->
 
   $( ":button" ).on( "click", ->
     uiUpdate())
-  
+
