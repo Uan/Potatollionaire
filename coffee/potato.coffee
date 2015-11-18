@@ -1,22 +1,26 @@
 $ ->
+
   potatoCount = 0
   potatoUpgrades = {}
   upgradeCooficients = {}
+  upgradeCosts = {}
   upgradeTypes = ["farm","factory","kappa"]
   upgradeNumbers = [2,5,10]
+  upgradeCostsN = [10,100,200]
   modifier = 0
-  
+
+  initStuff = ->
+    for index in [0...3]
+      potatoUpgrades[upgradeTypes[index]] = 0
+      upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index]
+      upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index]  
+
+  initStuff()
+
   showDict = ->
   	console.log upgradeCooficients
   	console.log potatoUpgrades
-#showDict method is to display debug values in the console
-  setValues = ->
-  	for index in [0...3]
-    	potatoUpgrades[upgradeTypes[index]] = 0
-    	upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index]
- 		
-  setValues()  	
-#this thing sets the values in the dictinaries 
+
   potatoGet  = ->
   	potatoCount += 1
   	showDict()
@@ -31,13 +35,15 @@ $ ->
   uiUpdate = ->
   	$( "#label").text("Potatoes: #{potatoCount}")
   	$( "#ps").text("Potatoes/second: #{modifier}")
-#$swag
+
   setInterval (potatoTick), 1000
   setInterval (uiUpdate), 100
   
   upgradeInsert = (type) ->
-    potatoUpgrades[type] = potatoUpgrades[type]+=1
-    
+    unless potatoCount < upgradeCosts[type]
+      potatoUpgrades[type] = potatoUpgrades[type]+=1
+      potatoCount -= upgradeCosts[type]
+      upgradeCosts[type] *= 2
     
   $( "#upgradeBtnF" ).on( "click", ->
     upgradeInsert("farm"))
