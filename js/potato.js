@@ -10,6 +10,7 @@
     upgradeNumbers = [2, 5, 10];
     upgradeCostsN = [10, 100, 200];
     modifier = 0;
+    console.log("whatever")
     initStuff = function() {
       var i, index, results;
       results = [];
