@@ -28,7 +28,7 @@
     potatoGet = function() {
       potatoCount += 1;
       showDict();
-      return $("#label").text("Potatoes: " + potatoCount);
+      return $("#label").text("Potatoes: " + (countConvert(potatoCount)));
     };
     potatoTick = function() {
       var i, len, type;
@@ -41,7 +41,7 @@
     };
     uiUpdate = function() {
       $("#label").text("Potatoes: " + (countConvert(potatoCount)));
-      return $("#ps").text("Potatoes/second: " + modifier);
+      return $("#ps").text("Potatoes/second: " + (countConvert(modifier)));
     };
     setInterval(potatoTick, 1000);
     setInterval(uiUpdate, 100);
@@ -72,9 +72,9 @@
       }
     };
     buttonValues = function() {
-      $("#upgradeBtnF").attr("value", "Build a Farm. Cost: " + upgradeCosts["farm"]);
-      $("#upgradeBtnFa").attr("value", "Build a Factory. Cost: " + upgradeCosts["factory"]);
-      return $("#upgradeBtnK").attr("value", "Build a Kappa. Cost: " + upgradeCosts["kappa"]);
+      $("#upgradeBtnF").attr("value", "Build a Farm. Cost: " + (countConvert(upgradeCosts["farm"])));
+      $("#upgradeBtnFa").attr("value", "Build a Factory. Cost: " + (countConvert(upgradeCosts["factory"])));
+      return $("#upgradeBtnK").attr("value", "Build a Kappa. Cost: " + (countConvert(upgradeCosts["kappa"])));
     };
     $("#upgradeBtnFa").on("click", function() {
       return upgradeInsert("factory");

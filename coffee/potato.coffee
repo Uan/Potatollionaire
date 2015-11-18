@@ -24,7 +24,7 @@ $ ->
   potatoGet  = ->
     potatoCount += 1
     showDict()
-    $( "#label").text("Potatoes: #{potatoCount}")
+    $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
 
   potatoTick = ->
     modifier = 0
@@ -34,7 +34,7 @@ $ ->
 
   uiUpdate = ->
     $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
-    $( "#ps").text("Potatoes/second: #{modifier}")
+    $( "#ps").text("Potatoes/second: #{countConvert(modifier)}")
    
   setInterval (potatoTick), 1000
   setInterval (uiUpdate), 100
@@ -61,9 +61,9 @@ $ ->
       return roundToTwo(number/1000) + "K"
     else return roundToTwo(number)
   buttonValues = ->
-    $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{upgradeCosts["farm"]}")
-    $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{upgradeCosts["factory"]}")
-    $( "#upgradeBtnK" ).attr("value", "Build a Kappa. Cost: #{upgradeCosts["kappa"]}")
+    $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{countConvert(upgradeCosts["farm"])}")
+    $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{countConvert(upgradeCosts["factory"])}")
+    $( "#upgradeBtnK" ).attr("value", "Build a Kappa. Cost: #{countConvert(upgradeCosts["kappa"])}")
   
 
   $( "#upgradeBtnFa" ).on( "click", ->
