@@ -35,16 +35,29 @@ $ ->
   uiUpdate = ->
   	$( "#label").text("Potatoes: #{potatoCount}")
   	$( "#ps").text("Potatoes/second: #{modifier}")
-
+   
   setInterval (potatoTick), 1000
   setInterval (uiUpdate), 100
-  
+
   upgradeInsert = (type) ->
     unless potatoCount < upgradeCosts[type]
       potatoUpgrades[type] = potatoUpgrades[type]+=1
       potatoCount -= upgradeCosts[type]
       upgradeCosts[type] *= 2
+      resCount = potatoUpgrades[type]
+      $( "##{type}Count").text("#{type}: #{resCount}")
+      buttonValues()
     
+  buttonValues = ->
+    $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{upgradeCosts["farm"]}")
+    $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{upgradeCosts["factory"]}")
+    $( "#upgradeBtnK" ).attr("value", "Build a Kappa. Cost: #{upgradeCosts["kappa"]}")
+  
+
+  $( "#upgradeBtnFa" ).on( "click", ->
+    upgradeInsert("factory"))
+  $( "#upgradeBtnK" ).on( "click", ->
+    upgradeInsert("kappa"))
   $( "#upgradeBtnF" ).on( "click", ->
     upgradeInsert("farm"))
   $( "#upgradeBtnFa" ).on( "click", ->
