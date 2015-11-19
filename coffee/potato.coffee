@@ -26,7 +26,7 @@ $ ->
 
   potatoGet  = ->
   	potatoCount += 1
-  	showDict()
+  	#showDict()
   	$( "#label").text("Potatoes: #{potatoCount}")
 
   potatoTick = ->
@@ -39,6 +39,7 @@ $ ->
     $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
     $( "#ps").text("Potatoes/second: #{modifier}")
     $("#mana").text("mana: #{mana}")
+    $("#spellmod").text("#{magicMultiplier}")
   setInterval (potatoTick), 1000
   setInterval (uiUpdate), 200
 
@@ -66,22 +67,21 @@ $ ->
       @cost
       @duration
       duration_cur :  0
-    expiration: ->
+    effect: =>
+      @tick()
+    expiration: =>
       @duration_cur=0 
-      console.log("sadness")
-    tick: ->
-      console.log('something')
+    tick: =>
       if @duration_cur > 0
-        @effect()
         @duration_cur -= 1
-        setTimeout(tick,1000)
-      else expiration
-    cast: ->
-      @tick
+        setTimeout(@tick,1000)
+      else @expiration()
+    cast: =>
       unless mana<@cost
         @duration_cur = @duration
         mana -=@cost
-        @tick
+        @effect()
+        
 
   class SummonGolem extends Spell
     constructor: ->
@@ -89,13 +89,12 @@ $ ->
     description: "summon potato golem to boost your production"
     cost: 10
     duration: 60
-    cast: ->
+    effect: =>
       super
       magicMultiplier +=0.15
-    expiration: ->
+    expiration: =>
       magicMultiplier -=0.15
   spells["golem"] = new SummonGolem
-
   sacrifice = (n) ->
     unless potatoCount<n
       mana+=n
@@ -104,7 +103,6 @@ $ ->
   $( "#sacrifice1" ).on( "click", ->
     sacrifice(1))
   $("#spell1").on("click", ->
-
     spells["golem"].cast())
  
   buttonValues = ->
