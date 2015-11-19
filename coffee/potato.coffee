@@ -27,7 +27,7 @@ $ ->
   potatoGet  = ->
   	potatoCount += 1
   	#showDict()
-  	$( "#label").text("Potatoes: #{potatoCount}")
+  	$( "#label").text("Potatoes: #{countConvert(potatoCount)}")
 
   potatoTick = ->
   	modifier = 0
@@ -37,7 +37,7 @@ $ ->
 
   uiUpdate = ->
     $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
-    $( "#ps").text("Potatoes/second: #{modifier}")
+    $( "#ps").text("Potatoes/second: #{countConvert(modifier)}")
     $("#mana").text("mana: #{mana}")
     $("#spellmod").text("#{magicMultiplier}")
   setInterval (potatoTick), 1000
@@ -52,14 +52,18 @@ $ ->
       resCount = potatoUpgrades[type]
       $( "##{type}Count").text("#{type}: #{resCount}")
       buttonValues()
+
+  roundToTwo = (number) ->
+    return Math.round(number*10)/10
+      
   countConvert = (number) ->
     if number >= 1000000000
-      return number/1000000000 + "B"
+      return roundToTwo(number/1000000000) + "B"
     else if number >= 1000000
-      return number/1000000 + "M" 
+      return roundToTwo(number/1000000) + "M"
     else if number >= 1000
-      return number/1000 + "K"
-    else return number
+      return roundToTwo(number/1000) + "K"
+    else return roundToTwo(number)
   
   class Spell
     constructor: (@name) ->
@@ -106,9 +110,9 @@ $ ->
     spells["golem"].cast())
  
   buttonValues = ->
-    $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{upgradeCosts["farm"]}")
-    $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{upgradeCosts["factory"]}")
-    $( "#upgradeBtnK" ).attr("value", "Build a Kappa. Cost: #{upgradeCosts["kappa"]}")
+    $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{countConvert(upgradeCosts["farm"])}")
+    $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{countConvert(upgradeCosts["factory"])}")
+    $( "#upgradeBtnK" ).attr("value", "Build a Kappa. Cost: #{countConvert(upgradeCosts["kappa"])}")
   
 
   $( "#upgradeBtnFa" ).on( "click", ->

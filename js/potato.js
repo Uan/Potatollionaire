@@ -5,7 +5,7 @@
     hasProp = {}.hasOwnProperty;
 
   $(function() {
-    var Spell, SummonGolem, activeSpells, buttonValues, countConvert, initStuff, magicMultiplier, mana, modifier, potatoCount, potatoGet, potatoTick, potatoUpgrades, sacrifice, showDict, spells, uiUpdate, upgradeCooficients, upgradeCosts, upgradeCostsN, upgradeInsert, upgradeNumbers, upgradeTypes;
+    var Spell, SummonGolem, activeSpells, buttonValues, countConvert, initStuff, magicMultiplier, mana, modifier, potatoCount, potatoGet, potatoTick, potatoUpgrades, roundToTwo, sacrifice, showDict, spells, uiUpdate, upgradeCooficients, upgradeCosts, upgradeCostsN, upgradeInsert, upgradeNumbers, upgradeTypes;
     potatoCount = 0;
     potatoUpgrades = {};
     upgradeCooficients = {};
@@ -34,7 +34,7 @@
     };
     potatoGet = function() {
       potatoCount += 1;
-      return $("#label").text("Potatoes: " + potatoCount);
+      return $("#label").text("Potatoes: " + (countConvert(potatoCount)));
     };
     potatoTick = function() {
       var i, len, type;
@@ -47,7 +47,7 @@
     };
     uiUpdate = function() {
       $("#label").text("Potatoes: " + (countConvert(potatoCount)));
-      $("#ps").text("Potatoes/second: " + modifier);
+      $("#ps").text("Potatoes/second: " + (countConvert(modifier)));
       $("#mana").text("mana: " + mana);
       return $("#spellmod").text("" + magicMultiplier);
     };
@@ -65,15 +65,18 @@
         return buttonValues();
       }
     };
+    roundToTwo = function(number) {
+      return Math.round(number * 10) / 10;
+    };
     countConvert = function(number) {
       if (number >= 1000000000) {
-        return number / 1000000000 + "B";
+        return roundToTwo(number / 1000000000) + "B";
       } else if (number >= 1000000) {
-        return number / 1000000 + "M";
+        return roundToTwo(number / 1000000) + "M";
       } else if (number >= 1000) {
-        return number / 1000 + "K";
+        return roundToTwo(number / 1000) + "K";
       } else {
-        return number;
+        return roundToTwo(number);
       }
     };
     Spell = (function() {
@@ -160,9 +163,9 @@
       return spells["golem"].cast();
     });
     buttonValues = function() {
-      $("#upgradeBtnF").attr("value", "Build a Farm. Cost: " + upgradeCosts["farm"]);
-      $("#upgradeBtnFa").attr("value", "Build a Factory. Cost: " + upgradeCosts["factory"]);
-      return $("#upgradeBtnK").attr("value", "Build a Kappa. Cost: " + upgradeCosts["kappa"]);
+      $("#upgradeBtnF").attr("value", "Build a Farm. Cost: " + (countConvert(upgradeCosts["farm"])));
+      $("#upgradeBtnFa").attr("value", "Build a Factory. Cost: " + (countConvert(upgradeCosts["factory"])));
+      return $("#upgradeBtnK").attr("value", "Build a Kappa. Cost: " + (countConvert(upgradeCosts["kappa"])));
     };
     $("#upgradeBtnFa").on("click", function() {
       return upgradeInsert("factory");
