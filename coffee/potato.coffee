@@ -50,7 +50,7 @@ $ ->
       upgradeCosts[type] *= 2
       upgradeCooficients[type] *= 1.5
       resCount = potatoUpgrades[type]
-      $( "##{type}Count").text("#{type}: #{resCount}")
+      $( "#resourceDisplay").append("<p>#{type}: #{resCount}</p>")
       buttonValues()
 
   roundToTwo = (number) ->
