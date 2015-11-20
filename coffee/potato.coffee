@@ -1,11 +1,12 @@
 $ ->
+  tickNum = 0
   potatoCount = 0
   potatoUpgrades = {}
   upgradeCooficients = {}
   upgradeCosts = {}
-  upgradeTypes = ["farm","factory","kappa"]
-  upgradeNumbers = [2,5,10]
-  upgradeCostsN = [10,100,200]
+  upgradeTypes = ["farm","factory","kappa","copy_machine"]
+  upgradeNumbers = [2,5,10,0]
+  upgradeCostsN = [10,100,200,10]
   modifier = 0
   magicMultiplier = 1
   mana = 0
@@ -13,12 +14,25 @@ $ ->
   activeSpells = {}
 
   initStuff = ->
-    for index in [0...3]
+    for index in [0...4]
       potatoUpgrades[upgradeTypes[index]] = 0
       upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index]
       upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index]  
 
   
+  copyMachine = ->
+    tickNum+=1
+    if tickNum == 5
+      prob = Math.floor(Math.random() * 100)
+      if prob <= 80
+        potatoUpgrades["farm"] += 1
+        tickNum = 0
+      else if prob <= 95
+        potatoUpgrades["factory"] += 1
+        tickNum = 0
+      else
+        potatoUpgrades["kappa"] += 1
+        tickNum = 0
 
   showDict = ->
   	console.log upgradeCooficients
@@ -26,7 +40,6 @@ $ ->
 
   potatoGet  = ->
   	potatoCount += 1
-  	#showDict()
   	$( "#label").text("Potatoes: #{countConvert(potatoCount)}")
 
   potatoTick = ->
@@ -41,6 +54,7 @@ $ ->
     $("#mana").text("mana: #{mana}")
     $("#spellmod").text("#{magicMultiplier}")
   setInterval (potatoTick), 1000
+  setInterval (copyMachine), 3000
   setInterval (uiUpdate), 200
 
   upgradeInsert = (type) ->
@@ -48,11 +62,10 @@ $ ->
       potatoUpgrades[type] = potatoUpgrades[type]+=1
       potatoCount -= upgradeCosts[type]
       upgradeCosts[type] *= 2
-      upgradeCooficients[type] *= 1.5
+      upgradeCooficients[type] *= 1.15
       resCount = potatoUpgrades[type]
       $( "#resourceDisplay").append("<p>#{type}: #{resCount}</p>")
       buttonValues()
-
   roundToTwo = (number) ->
     return Math.round(number*10)/10
       
@@ -113,6 +126,7 @@ $ ->
     $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{countConvert(upgradeCosts["farm"])}")
     $( "#upgradeBtnFa" ).attr("value", "Build a Factory. Cost: #{countConvert(upgradeCosts["factory"])}")
     $( "#upgradeBtnK" ).attr("value", "Build a Kappa. Cost: #{countConvert(upgradeCosts["kappa"])}")
+    $( "#upgradeBtnC" ).attr("value", "Build a Copy machine. Cost: #{countConvert(upgradeCosts["copy_machine"])}")
   
 
   $( "#upgradeBtnFa" ).on( "click", ->
@@ -121,10 +135,9 @@ $ ->
     upgradeInsert("kappa"))
   $( "#upgradeBtnF" ).on( "click", ->
     upgradeInsert("farm"))
-  $( "#upgradeBtnFa" ).on( "click", ->
-    upgradeInsert("factory"))
-  $( "#upgradeBtnK" ).on( "click", ->
-    upgradeInsert("kappa"))
+  $( "#upgradeBtnC" ).on( "click", ->
+    upgradeInsert("copy_machine"))
+  
   $( "#potatoGet" ).on( "click", ->
     potatoGet())
 

@@ -5,14 +5,15 @@
     hasProp = {}.hasOwnProperty;
 
   $(function() {
-    var Spell, SummonGolem, activeSpells, buttonValues, countConvert, initStuff, magicMultiplier, mana, modifier, potatoCount, potatoGet, potatoTick, potatoUpgrades, roundToTwo, sacrifice, showDict, spells, uiUpdate, upgradeCooficients, upgradeCosts, upgradeCostsN, upgradeInsert, upgradeNumbers, upgradeTypes;
+    var Spell, SummonGolem, activeSpells, buttonValues, copyMachine, countConvert, initStuff, magicMultiplier, mana, modifier, potatoCount, potatoGet, potatoTick, potatoUpgrades, roundToTwo, sacrifice, showDict, spells, tickNum, uiUpdate, upgradeCooficients, upgradeCosts, upgradeCostsN, upgradeInsert, upgradeNumbers, upgradeTypes;
+    tickNum = 0;
     potatoCount = 0;
     potatoUpgrades = {};
     upgradeCooficients = {};
     upgradeCosts = {};
-    upgradeTypes = ["farm", "factory", "kappa"];
-    upgradeNumbers = [2, 5, 10];
-    upgradeCostsN = [10, 100, 200];
+    upgradeTypes = ["farm", "factory", "kappa", "copy_machine"];
+    upgradeNumbers = [2, 5, 10, 0];
+    upgradeCostsN = [10, 100, 200, 10];
     modifier = 0;
     magicMultiplier = 1;
     mana = 0;
@@ -21,12 +22,29 @@
     initStuff = function() {
       var i, index, results;
       results = [];
-      for (index = i = 0; i < 3; index = ++i) {
+      for (index = i = 0; i < 4; index = ++i) {
         potatoUpgrades[upgradeTypes[index]] = 0;
         upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index];
         results.push(upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index]);
       }
       return results;
+    };
+    copyMachine = function() {
+      var prob;
+      tickNum += 1;
+      if (tickNum === 5) {
+        prob = Math.floor(Math.random() * 100);
+        if (prob <= 80) {
+          potatoUpgrades["farm"] += 1;
+          return tickNum = 0;
+        } else if (prob <= 95) {
+          potatoUpgrades["factory"] += 1;
+          return tickNum = 0;
+        } else {
+          potatoUpgrades["kappa"] += 1;
+          return tickNum = 0;
+        }
+      }
     };
     showDict = function() {
       console.log(upgradeCooficients);
@@ -52,6 +70,7 @@
       return $("#spellmod").text("" + magicMultiplier);
     };
     setInterval(potatoTick, 1000);
+    setInterval(copyMachine, 3000);
     setInterval(uiUpdate, 200);
     upgradeInsert = function(type) {
       var resCount;
@@ -59,7 +78,7 @@
         potatoUpgrades[type] = potatoUpgrades[type] += 1;
         potatoCount -= upgradeCosts[type];
         upgradeCosts[type] *= 2;
-        upgradeCooficients[type] *= 1.5;
+        upgradeCooficients[type] *= 1.15;
         resCount = potatoUpgrades[type];
         $("#resourceDisplay").append("<p>" + type + ": " + resCount + "</p>");
         return buttonValues();
@@ -165,7 +184,8 @@
     buttonValues = function() {
       $("#upgradeBtnF").attr("value", "Build a Farm. Cost: " + (countConvert(upgradeCosts["farm"])));
       $("#upgradeBtnFa").attr("value", "Build a Factory. Cost: " + (countConvert(upgradeCosts["factory"])));
-      return $("#upgradeBtnK").attr("value", "Build a Kappa. Cost: " + (countConvert(upgradeCosts["kappa"])));
+      $("#upgradeBtnK").attr("value", "Build a Kappa. Cost: " + (countConvert(upgradeCosts["kappa"])));
+      return $("#upgradeBtnC").attr("value", "Build a Copy machine. Cost: " + (countConvert(upgradeCosts["copy_machine"])));
     };
     $("#upgradeBtnFa").on("click", function() {
       return upgradeInsert("factory");
@@ -176,11 +196,8 @@
     $("#upgradeBtnF").on("click", function() {
       return upgradeInsert("farm");
     });
-    $("#upgradeBtnFa").on("click", function() {
-      return upgradeInsert("factory");
-    });
-    $("#upgradeBtnK").on("click", function() {
-      return upgradeInsert("kappa");
+    $("#upgradeBtnC").on("click", function() {
+      return upgradeInsert("copy_machine");
     });
     $("#potatoGet").on("click", function() {
       return potatoGet();
