@@ -21,7 +21,7 @@ initStuff = ->
   spells["golem"] = new SummonGolem
   setInterval (potatoTick), 1000
   setInterval (copyMachine), 1000
-  setInterval (uiUpdate), 200
+ 
   
 copyMachine = ->
   #console.log("Copy Machine has been accessed")
