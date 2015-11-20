@@ -33,15 +33,7 @@ class SummonGolem extends Spell
   expiration: =>
     magicMultiplier -=0.15
 
-spells["golem"] = new SummonGolem
-
 sacrifice = (n) ->
   unless potatoCount<n
     mana+=n
-    potatoCount-=n
-    
-$( "#sacrifice1" ).on( "click", ->
-  sacrifice(1))
-$("#spell1").on("click", ->
-  spells["golem"].cast())
- 
+    potatoCount-=n 
