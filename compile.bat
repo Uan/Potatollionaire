@@ -1,0 +1,1 @@
+coffee --join js/potato.js --compile coffee/
