@@ -14,25 +14,32 @@ $ ->
   activeSpells = {}
 
   initStuff = ->
-    for index in [0...4]
+    for index in [0..4]
       potatoUpgrades[upgradeTypes[index]] = 0
       upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index]
       upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index]  
 
-  
+  displayUpgrade = ->
+    $( "#resourceDisplay").text("")
+    for i in [0..upgradeTypes.length-1]
+      type = upgradeTypes[i]
+      if potatoUpgrades[type] > 0
+        $( "#resourceDisplay").append("<p>#{type}: #{potatoUpgrades[type]}</p>")  
+
   copyMachine = ->
     tickNum+=1
-    if tickNum == 5
-      prob = Math.floor(Math.random() * 100)
-      if prob <= 80
-        potatoUpgrades["farm"] += 1
+    console.log("Copy Machine has been accessed")
+    for i in [0...potatoUpgrades["copy_machine"]] 
+      if tickNum == 5 
+        prob = Math.floor(Math.random() * 100)
+        if prob <= 80
+          upgradeInsert("farm","cm")          
+        else if prob <= 95
+          upgradeInsert("factory","cm")    
+        else
+          upgradeInsert("kappa","cm")
         tickNum = 0
-      else if prob <= 95
-        potatoUpgrades["factory"] += 1
-        tickNum = 0
-      else
-        potatoUpgrades["kappa"] += 1
-        tickNum = 0
+          
 
   showDict = ->
   	console.log upgradeCooficients
@@ -41,6 +48,7 @@ $ ->
   potatoGet  = ->
   	potatoCount += 1
   	$( "#label").text("Potatoes: #{countConvert(potatoCount)}")
+
 
   potatoTick = ->
   	modifier = 0
@@ -53,19 +61,30 @@ $ ->
     $( "#ps").text("Potatoes/second: #{countConvert(modifier)}")
     $("#mana").text("mana: #{mana}")
     $("#spellmod").text("#{magicMultiplier}")
+    displayUpgrade()
+
+
   setInterval (potatoTick), 1000
-  setInterval (copyMachine), 3000
+  if potatoUpgrades["copy_machine"] > 0
+    setInterval (copyMachine), 1000
   setInterval (uiUpdate), 200
 
-  upgradeInsert = (type) ->
-    unless potatoCount < upgradeCosts[type]
+
+  upgradeInsert = (type,source) ->
+    if potatoCount >= upgradeCosts[type] and source == "user"
+      console.log("user has made a #{type}")
       potatoUpgrades[type] = potatoUpgrades[type]+=1
       potatoCount -= upgradeCosts[type]
       upgradeCosts[type] *= 2
       upgradeCooficients[type] *= 1.15
-      resCount = potatoUpgrades[type]
-      $( "#resourceDisplay").append("<p>#{type}: #{resCount}</p>")
-      buttonValues()
+    
+    else if source == "cm" 
+      potatoUpgrades[type] = potatoUpgrades[type]+=1
+      upgradeCooficients[type] *= 1.15
+    
+    buttonValues()
+
+
   roundToTwo = (number) ->
     return Math.round(number*10)/10
       
@@ -130,13 +149,13 @@ $ ->
   
 
   $( "#upgradeBtnFa" ).on( "click", ->
-    upgradeInsert("factory"))
+    upgradeInsert("factory","user"))
   $( "#upgradeBtnK" ).on( "click", ->
-    upgradeInsert("kappa"))
+    upgradeInsert("kappa","user"))
   $( "#upgradeBtnF" ).on( "click", ->
-    upgradeInsert("farm"))
+    upgradeInsert("farm","user"))
   $( "#upgradeBtnC" ).on( "click", ->
-    upgradeInsert("copy_machine"))
+    upgradeInsert("copy_machine","user"))
   
   $( "#potatoGet" ).on( "click", ->
     potatoGet())
