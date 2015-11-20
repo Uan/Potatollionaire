@@ -44,22 +44,24 @@
       return results;
     };
     copyMachine = function() {
-      var prob;
-      console.log("wtf");
-      console.log(potatoUpgrades["copy_machine"]);
-      tickNum += 1;
+      var i, j, prob, ref, results;
+      console.log("Copy Machine has been accessed");
       if (tickNum === 5) {
-        prob = Math.floor(Math.random() * 100);
-        if (prob <= 80) {
-          upgradeInsert("farm", "cm");
-          return tickNum = 0;
-        } else if (prob <= 95) {
-          upgradeInsert("factory", "cm");
-          return tickNum = 0;
-        } else {
-          upgradeInsert("kappa", "cm");
-          return tickNum = 0;
+        results = [];
+        for (i = j = 0, ref = potatoUpgrades["copy_machine"]; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+          prob = Math.floor(Math.random() * 100);
+          if (prob <= 80) {
+            upgradeInsert("farm", "cm");
+          } else if (prob <= 95) {
+            upgradeInsert("factory", "cm");
+          } else {
+            upgradeInsert("kappa", "cm");
+          }
+          results.push(tickNum = 0);
         }
+        return results;
+      } else {
+        return tickNum += 1;
       }
     };
     showDict = function() {
@@ -87,12 +89,11 @@
       return displayUpgrade();
     };
     setInterval(potatoTick, 1000);
-    if (potatoUpgrades["copy_machine"] > 0) {
-      setInterval(copyMachine, 1000);
-    }
+    setInterval(copyMachine, 1000);
     setInterval(uiUpdate, 200);
     upgradeInsert = function(type, source) {
       if (potatoCount >= upgradeCosts[type] && source === "user") {
+        console.log("user has made a " + type);
         potatoUpgrades[type] = potatoUpgrades[type] += 1;
         potatoCount -= upgradeCosts[type];
         upgradeCosts[type] *= 2;

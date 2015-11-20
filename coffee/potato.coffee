@@ -27,18 +27,19 @@ $ ->
         $( "#resourceDisplay").append("<p>#{type}: #{potatoUpgrades[type]}</p>")  
 
   copyMachine = ->
-    tickNum+=1
     console.log("Copy Machine has been accessed")
     if tickNum == 5
       for i in [0...potatoUpgrades["copy_machine"]] 
           prob = Math.floor(Math.random() * 100)
           if prob <= 80
            upgradeInsert("farm","cm")          
-         else if prob <= 95
+          else if prob <= 95
             upgradeInsert("factory","cm")    
-         else
-           upgradeInsert("kappa","cm")
-         tickNum = 0
+          else
+            upgradeInsert("kappa","cm")
+          tickNum = 0
+    else 
+      tickNum+=1
           
 
   showDict = ->
@@ -65,8 +66,7 @@ $ ->
 
 
   setInterval (potatoTick), 1000
-  if potatoUpgrades["copy_machine"] > 0
-    setInterval (copyMachine), 1000
+  setInterval (copyMachine), 1000
   setInterval (uiUpdate), 200
 
 
