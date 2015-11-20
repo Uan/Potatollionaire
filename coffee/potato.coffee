@@ -29,16 +29,16 @@ $ ->
   copyMachine = ->
     tickNum+=1
     console.log("Copy Machine has been accessed")
-    for i in [0...potatoUpgrades["copy_machine"]] 
-      if tickNum == 5 
-        prob = Math.floor(Math.random() * 100)
-        if prob <= 80
-          upgradeInsert("farm","cm")          
-        else if prob <= 95
-          upgradeInsert("factory","cm")    
-        else
-          upgradeInsert("kappa","cm")
-        tickNum = 0
+    if tickNum == 5
+      for i in [0...potatoUpgrades["copy_machine"]] 
+          prob = Math.floor(Math.random() * 100)
+          if prob <= 80
+           upgradeInsert("farm","cm")          
+         else if prob <= 95
+            upgradeInsert("factory","cm")    
+         else
+           upgradeInsert("kappa","cm")
+         tickNum = 0
           
 
   showDict = ->
