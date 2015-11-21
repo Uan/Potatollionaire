@@ -1,1 +1,1 @@
-coffee --join js/potato.js --compile coffee/
+coffee  --watch --join js/potato.js --compile coffee/
