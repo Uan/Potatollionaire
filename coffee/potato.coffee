@@ -1,6 +1,7 @@
 
 tickNum = 0
 potatoCount = 0
+cmTime = 50
 potatoUpgrades = {}
 upgradeCooficients = {}
 upgradeCosts = {}
@@ -21,23 +22,21 @@ initStuff = ->
   spells["golem"] = new SummonGolem
   setInterval (potatoTick), 1000
   setInterval (copyMachine), 1000
- 
+
   
 copyMachine = ->
-  #console.log("Copy Machine has been accessed")
-  if tickNum == 5
-    for i in [0...potatoUpgrades["copy_machine"]] 
-        prob = Math.floor(Math.random() * 100)
-        if prob <= 80
-         upgradeInsert("farm","cm")          
-        else if prob <= 95
-          upgradeInsert("factory","cm")    
-        else
-          upgradeInsert("kappa","cm")
-        tickNum = 0
-  else 
-    tickNum+=1
-        
+  if potatoUpgrades["copy_machine"] > 0
+    if tickNum >= cmTime
+      prob = Math.floor(Math.random() * 100)
+      tickNum = 0
+      if prob <= 80
+        upgradeInsert("farm","cm")        
+      else if prob <= 95
+        upgradeInsert("factory","cm")       
+      else
+        upgradeInsert("kappa","cm")
+    else
+      tickNum+=1
 
 showDict = ->
   console.log upgradeCooficients
@@ -61,12 +60,14 @@ upgradeInsert = (type,source) ->
     potatoCount -= upgradeCosts[type]
     upgradeCosts[type] *= 2
     upgradeCooficients[type] *= 1.15
+    if type == "copy_machine"
+      cmTime-=cmTime*.15
+      console.log(cmTime)
   
   else if source == "cm" 
     potatoUpgrades[type] = potatoUpgrades[type]+=1
     upgradeCooficients[type] *= 1.15
-  
-  buttonValues()
+
 
 
 roundToTwo = (number) ->

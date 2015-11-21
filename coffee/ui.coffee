@@ -41,6 +41,7 @@ $ ->
     $("#mana").text("mana: #{mana}")
     $("#spellmod").text("#{magicMultiplier}")
     displayUpgrade()
+    buttonValues()
   
   initStuff()
   initUi()
