@@ -2,7 +2,7 @@ $ ->
   initUi = ->
    setInterval (uiUpdate), 200
   
-  displayUpgrade = ->
+  displayBuildings = ->
     $( "#resourceDisplay").text("")
     for i in [0..upgradeTypes.length-1]
       type = upgradeTypes[i]
@@ -39,8 +39,9 @@ $ ->
     $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
     $( "#ps").text("Potatoes/second: #{countConvert(modifier)}")
     $("#mana").text("mana: #{mana}")
-    $("#spellmod").text("#{magicMultiplier}")
-    displayUpgrade()
+    $("#spellmod").text("#{countConvert magicMultiplier}")
+    displayBuildings()
+    # displayAchievements()
     buttonValues()
   
   initStuff()

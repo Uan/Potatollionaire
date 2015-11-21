@@ -20,8 +20,11 @@ initStuff = ->
     upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index]
     upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index]  
   spells["golem"] = new SummonGolem
-  setInterval (potatoTick), 1000
-  setInterval (copyMachine), 1000
+  setInterval ->
+    potatoTick()
+    copyMachine()
+    achievementCheck()
+  , 1000
 
   
 copyMachine = ->
@@ -46,7 +49,6 @@ potatoGet  = ->
   potatoCount += 1
   $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
 
-
 potatoTick = ->
   modifier = 0
   for type in upgradeTypes
@@ -67,8 +69,6 @@ upgradeInsert = (type,source) ->
   else if source == "cm" 
     potatoUpgrades[type] = potatoUpgrades[type]+=1
     upgradeCooficients[type] *= 1.15
-
-
 
 roundToTwo = (number) ->
   return Math.round(number*10)/10
