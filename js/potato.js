@@ -60,7 +60,6 @@
     }
 
     Building.prototype.purchase = function() {
-      console.log("ey");
       if (potatoCount >= this.getCost()) {
         this.built = true;
         this.amount += 1;
@@ -84,7 +83,6 @@
     };
 
     Building.prototype.getCost = function() {
-      console.log(this.cost);
       return this.cost;
     };
 
@@ -93,12 +91,10 @@
     };
 
     Building.prototype.getButtonId = function() {
-      console.log(this.buttonID);
       return this.buttonID;
     };
 
     Building.prototype.getDesc = function() {
-      console.log(this.bDesc);
       return this.bDesc;
     };
 
@@ -116,7 +112,6 @@
 
   buildingInsert = function(type, cost, modifier, buttonID, bD) {
     var built, i, j, len, temp;
-    console.log("KEK");
     built = false;
     if (buildings.length !== 0) {
       for (j = 0, len = buildings.length; j < len; j++) {

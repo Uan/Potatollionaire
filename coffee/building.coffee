@@ -5,7 +5,6 @@ class Building
 		@built = false
 		@amount = 0
 	purchase: ->	
-		console.log("ey")
 		if potatoCount >= @getCost()
 			@built = true
 			@amount+=1
@@ -19,15 +18,12 @@ class Building
 	getName: ->
 		return @name
 	getCost: ->
-		console.log(@cost)
 		return @cost
 	getNum: ->
 		return @amount
 	getButtonId: ->
-		console.log @buttonID
 		return @buttonID
 	getDesc: ->
-		console.log @bDesc
 		return @bDesc
 	increaseCost: ->
 		@cost = @cost*1.15
@@ -36,7 +32,6 @@ class Building
 
 
 buildingInsert = (type, cost, modifier, buttonID, bD) ->
-	console.log("KEK")
 	built = false
 	unless buildings.length == 0
 		for i in buildings
