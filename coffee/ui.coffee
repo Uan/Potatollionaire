@@ -4,10 +4,8 @@ $ ->
   
   displayBuildings = ->
     $( "#resourceDisplay").text("")
-    for i in [0..upgradeTypes.length-1]
-      type = upgradeTypes[i]
-      if potatoUpgrades[type] > 0
-        $( "#resourceDisplay").append("<p>#{type}: #{potatoUpgrades[type]}</p>")
+    for i in buildings
+        $( "#resourceDisplay").append("<p>#{i.getName}: #{i.getNum}</p>")
         
   buttonValues = ->
     $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{countConvert(upgradeCosts["farm"])}")
@@ -17,7 +15,7 @@ $ ->
 
 
   $( "#upgradeBtnFa" ).on( "click", ->
-    upgradeInsert("factory","user"))
+    upgradeInsert("factory",10,2))
   $( "#upgradeBtnK" ).on( "click", ->
     upgradeInsert("kappa","user"))
   $( "#upgradeBtnF" ).on( "click", ->

@@ -60,23 +60,26 @@
       this.amount = 0;
     }
 
+    Building.prototype.calculatePrice = function() {
+      if (this.amount > 0) {
+        console.log("HAAAAAAAAAA");
+        this.cost = this.cost * 1.15;
+      }
+      return this.cost;
+    };
+
     Building.prototype.purchase = function() {
       this.built = true;
-      if (potatoCount > calculatePrice()) {
-        amount += 1;
+      if (potatoCount >= this.calculatePrice()) {
+        this.amount += 1;
         return potatoCount -= this.cost;
       } else {
         return console.log("KAPPA");
       }
     };
 
-    Building.prototype.calculatePrice = function() {
-      this.cost = this.cost * 1.15;
-      return this.cost;
-    };
-
     Building.prototype.getMod = function() {
-      return modifier;
+      return this.modifier;
     };
 
     Building.prototype.isBuilt = function() {
@@ -97,15 +100,19 @@
 
   upgradeInsert = function(type, cost, modifier) {
     var built, i, j, len, temp;
+    console.log("HEEEEEY");
     built = false;
-    for (j = 0, len = buildings.length; j < len; j++) {
-      i = buildings[j];
-      if (i.getName === type) {
-        i.purchase;
-        built = true;
+    if (buildings.length !== 0) {
+      for (j = 0, len = buildings.length; j < len; j++) {
+        i = buildings[j];
+        if (i.getName === type) {
+          i.purchase;
+          built = true;
+        }
       }
     }
     if (!built) {
+      console.log("AYYYYYY");
       temp = new Building(type, cost, modifier);
       return temp.purchase();
     }
@@ -207,16 +214,9 @@
   activeSpells = {};
 
   initStuff = function() {
-    var index, j;
-    for (index = j = 0; j <= 4; index = ++j) {
-      potatoUpgrades[upgradeTypes[index]] = 0;
-      upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index];
-      upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index];
-    }
     spells["golem"] = new SummonGolem;
     return setInterval(function() {
       potatoTick();
-      copyMachine();
       return achievementCheck();
     }, 1000);
   };
@@ -251,7 +251,8 @@
       type = buildings[j];
       modifier += type.getMod() * type.getNum();
     }
-    return potatoCount += modifier * magicMultiplier;
+    potatoCount += modifier * magicMultiplier;
+    return modifier = 0;
   };
 
   roundToTwo = function(number) {
@@ -276,16 +277,12 @@
       return setInterval(uiUpdate, 200);
     };
     displayBuildings = function() {
-      var i, j, ref, results, type;
+      var i, j, len, results;
       $("#resourceDisplay").text("");
       results = [];
-      for (i = j = 0, ref = upgradeTypes.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-        type = upgradeTypes[i];
-        if (potatoUpgrades[type] > 0) {
-          results.push($("#resourceDisplay").append("<p>" + type + ": " + potatoUpgrades[type] + "</p>"));
-        } else {
-          results.push(void 0);
-        }
+      for (j = 0, len = buildings.length; j < len; j++) {
+        i = buildings[j];
+        results.push($("#resourceDisplay").append("<p>" + i.getName + ": " + i.getNum + "</p>"));
       }
       return results;
     };
@@ -296,7 +293,7 @@
       return $("#upgradeBtnC").attr("value", "Build a Copy machine. Cost: " + (countConvert(upgradeCosts["copy_machine"])));
     };
     $("#upgradeBtnFa").on("click", function() {
-      return upgradeInsert("factory", "user");
+      return upgradeInsert("factory", 10, 2);
     });
     $("#upgradeBtnK").on("click", function() {
       return upgradeInsert("kappa", "user");

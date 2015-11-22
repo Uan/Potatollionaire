@@ -9,14 +9,10 @@ spells = {}
 activeSpells = {}
 
 initStuff = ->
-  for index in [0..4]
-    potatoUpgrades[upgradeTypes[index]] = 0
-    upgradeCooficients[upgradeTypes[index]] = upgradeNumbers[index]
-    upgradeCosts[upgradeTypes[index]] = upgradeCostsN[index]  
   spells["golem"] = new SummonGolem
   setInterval ->
     potatoTick()
-    copyMachine()
+    #copyMachine()
     achievementCheck()
   , 1000
 
@@ -43,7 +39,7 @@ potatoTick = ->
   for type in buildings
       modifier += type.getMod()*type.getNum()
   potatoCount += modifier*magicMultiplier
-
+  modifier = 0
 
 roundToTwo = (number) ->
   return Math.round(number*10)/10
