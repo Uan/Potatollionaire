@@ -2,21 +2,19 @@ buildings = []
 class Building
 	constructor: (@name, @cost, @modifier) ->
 		@built = false
-		@cost
-		@description
-		@modifier
 		@amount = 0
 	calculatePrice: ->
+		console.log(@cost)
 		if @amount > 0
 			console.log("HAAAAAAAAAA")
 			@cost = @cost*1.15
 		return @cost
-	purchase: -> 
-		@built = true
+	purchase: ->	
 		if potatoCount >= @calculatePrice()
+			@built = true
 			@amount+=1
 			potatoCount-=@cost
-		else console.log("KAPPA")
+		else console.log("Not enough resources?")
 
 	getMod: ->
 		return @modifier
@@ -31,12 +29,13 @@ upgradeInsert = (type, cost, modifier) ->
 	built = false
 	unless buildings.length == 0
 		for i in buildings
-			if i.getName == type
-				i.purchase
+			if i.getName() == type
+				i.purchase()
 				built = true
-	if !built
+	unless built
 		console.log("AYYYYYY")
 		temp = new Building(type, cost, modifier)
+		buildings.push(temp)
 		temp.purchase()
 
 

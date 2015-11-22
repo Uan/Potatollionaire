@@ -34,10 +34,11 @@ copyMachine = ->
 potatoGet  = ->
   potatoCount += 1
   $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
+  console.log(buildings)
 
 potatoTick = ->
-  for type in buildings
-      modifier += type.getMod()*type.getNum()
+  for building in buildings
+      modifier += building.getMod()*building.getNum()
   potatoCount += modifier*magicMultiplier
   modifier = 0
 

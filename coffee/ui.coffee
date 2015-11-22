@@ -4,8 +4,8 @@ $ ->
   
   displayBuildings = ->
     $( "#resourceDisplay").text("")
-    for i in buildings
-        $( "#resourceDisplay").append("<p>#{i.getName}: #{i.getNum}</p>")
+    for building in buildings
+        $( "#resourceDisplay").append("<p>#{building.getName()}: #{building.getNum()}</p>")
         
   buttonValues = ->
     $( "#upgradeBtnF" ).attr("value", "Build a Farm. Cost: #{countConvert(upgradeCosts["farm"])}")
@@ -15,11 +15,11 @@ $ ->
 
 
   $( "#upgradeBtnFa" ).on( "click", ->
-    upgradeInsert("factory",10,2))
+    upgradeInsert("factory",100,10))
   $( "#upgradeBtnK" ).on( "click", ->
     upgradeInsert("kappa","user"))
   $( "#upgradeBtnF" ).on( "click", ->
-    upgradeInsert("farm","user"))
+    upgradeInsert("farm",10,2))
   $( "#upgradeBtnC" ).on( "click", ->
     upgradeInsert("copy_machine","user"))
 
@@ -40,7 +40,7 @@ $ ->
     $("#spellmod").text("#{countConvert magicMultiplier}")
     displayBuildings()
     # displayAchievements()
-    buttonValues()
+    #buttonValues()
   
   initStuff()
   initUi()
