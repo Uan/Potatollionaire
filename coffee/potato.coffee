@@ -7,6 +7,7 @@ magicMultiplier = 1
 mana = 0
 spells = {}
 activeSpells = {}
+clickValue = 1
 
 initStuff = ->
   spells["golem"] = new SummonGolem
@@ -32,9 +33,9 @@ copyMachine = ->
       tickNum+=1
 
 potatoGet  = ->
-  potatoCount += 1
-  $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
-  console.log(buildings)
+  potatoCount += clickValue
+  $( "#label").text("Potatoes: #{numberShortener(potatoCount)}")
+  # console.log(buildings)
 
 potatoTick = ->
   modifier = 0
@@ -43,14 +44,15 @@ potatoTick = ->
   potatoCount += modifier*magicMultiplier
 
 
-roundToTwo = (number) ->
-  return Math.round(number*10)/10
+round = (number,n) ->
+  n ?=3 
+  return  Math.round number if n==1 
+  Math.round(number*(10**(n)))/(10**(n))
     
-countConvert = (number) ->
-  if number >= 1000000000
-    return roundToTwo(number/1000000000) + "B"
-  else if number >= 1000000
-    return roundToTwo(number/1000000) + "M"
-  else if number >= 1000
-    return roundToTwo(number/1000) + "K"
-  else return roundToTwo(number)
+numberShortener = (number) ->
+  return round(number) if number<1000
+  arr = ['K','M','B','T','Qa','Qi']
+  multiplier = 1
+  until (10**(3*(multiplier+1)))>number
+    multiplier+=1 
+  "#{round(number/(10**(multiplier*3)))}#{arr[multiplier-1]}"

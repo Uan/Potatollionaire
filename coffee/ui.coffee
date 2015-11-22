@@ -39,11 +39,11 @@ $ ->
     
   uiUpdate = ->
     for building in buildings
-      $("##{building.getButtonId()}").attr("value", "#{building.getDesc()} : #{countConvert(building.getCost())}")
-    $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
-    $( "#ps").text("Potatoes/second: #{countConvert(modifier)}")
+      $("##{building.getButtonId()}").attr("value", "#{building.getDesc()} : #{numberShortener(building.getCost())}")
+    $( "#label").text("Potatoes: #{numberShortener(potatoCount)}")
+    $( "#ps").text("Potatoes/second: #{numberShortener(modifier)}")
     $("#mana").text("mana: #{mana}")
-    $("#spellmod").text("#{countConvert magicMultiplier}")
+    $("#spellmod").text("#{numberShortener magicMultiplier}")
     displayBuildings()
     # displayAchievements()
     #buttonValues()

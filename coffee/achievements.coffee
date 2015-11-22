@@ -1,7 +1,6 @@
 achievements = []
 class Achievement
   constructor: (@name,@requirements,@description,@flavour_text) ->
-    
     @unlocked = false 
   tryUnlock: =>
     if @requirements() && !@unlocked
