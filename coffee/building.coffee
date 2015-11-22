@@ -5,7 +5,7 @@ class Building
 		@built = false
 		@amount = 0
 	purchase: ->	
-		if potatoCount >= @getCost()
+		if  @getCost() <= potatoCount
 			@built = true
 			@amount+=1
 			potatoCount-=@getCost()
@@ -40,7 +40,8 @@ buildingInsert = (type, cost, modifier, buttonID, bD) ->
 				built = true
 	unless built
 		temp = new Building(type, cost, modifier, buttonID, bD)
-		unless temp.getCost() >= potatoCount
+		console.log(temp.getCost())
+		unless potatoCount < temp.getCost()
 			buildings.push(temp)
 			temp.purchase()
 

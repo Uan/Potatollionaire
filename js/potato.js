@@ -60,7 +60,7 @@
     }
 
     Building.prototype.purchase = function() {
-      if (potatoCount >= this.getCost()) {
+      if (this.getCost() <= potatoCount) {
         this.built = true;
         this.amount += 1;
         potatoCount -= this.getCost();
@@ -124,7 +124,8 @@
     }
     if (!built) {
       temp = new Building(type, cost, modifier, buttonID, bD);
-      if (!(temp.getCost() >= potatoCount)) {
+      console.log(temp.getCost());
+      if (!(potatoCount < temp.getCost())) {
         buildings.push(temp);
         return temp.purchase();
       }
