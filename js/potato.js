@@ -124,8 +124,10 @@
     }
     if (!built) {
       temp = new Building(type, cost, modifier, buttonID, bD);
-      buildings.push(temp);
-      return temp.purchase();
+      if (!(temp.getCost() >= potatoCount)) {
+        buildings.push(temp);
+        return temp.purchase();
+      }
     }
   };
 

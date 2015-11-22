@@ -40,8 +40,9 @@ buildingInsert = (type, cost, modifier, buttonID, bD) ->
 				built = true
 	unless built
 		temp = new Building(type, cost, modifier, buttonID, bD)
-		buildings.push(temp)
-		temp.purchase()
+		unless temp.getCost() >= potatoCount
+			buildings.push(temp)
+			temp.purchase()
 
 
 
