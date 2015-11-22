@@ -2,12 +2,6 @@
 tickNum = 0
 potatoCount = 0
 cmTime = 50
-potatoUpgrades = {}
-upgradeCooficients = {}
-upgradeCosts = {}
-upgradeTypes = ["farm","factory","kappa","copy_machine"]
-upgradeNumbers = [2,5,10,0]
-upgradeCostsN = [10,100,200,10]
 modifier = 0
 magicMultiplier = 1
 mana = 0
@@ -41,34 +35,15 @@ copyMachine = ->
     else
       tickNum+=1
 
-showDict = ->
-  console.log upgradeCooficients
-  console.log potatoUpgrades
-
 potatoGet  = ->
   potatoCount += 1
   $( "#label").text("Potatoes: #{countConvert(potatoCount)}")
 
 potatoTick = ->
-  modifier = 0
-  for type in upgradeTypes
-      modifier += potatoUpgrades[type]*upgradeCooficients[type]
+  for type in buildings
+      modifier += type.getMod()
   potatoCount += modifier*magicMultiplier
 
-upgradeInsert = (type,source) ->
-  if potatoCount >= upgradeCosts[type] and source == "user"
-    console.log("user has made a #{type}")
-    potatoUpgrades[type] = potatoUpgrades[type]+=1
-    potatoCount -= upgradeCosts[type]
-    upgradeCosts[type] *= 2
-    upgradeCooficients[type] *= 1.15
-    if type == "copy_machine"
-      cmTime-=cmTime*.15
-      console.log(cmTime)
-  
-  else if source == "cm" 
-    potatoUpgrades[type] = potatoUpgrades[type]+=1
-    upgradeCooficients[type] *= 1.15
 
 roundToTwo = (number) ->
   return Math.round(number*10)/10
