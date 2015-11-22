@@ -41,7 +41,7 @@ potatoGet  = ->
 
 potatoTick = ->
   for type in buildings
-      modifier += type.getMod()
+      modifier += type.getMod()*type.getNum()
   potatoCount += modifier*magicMultiplier
 
 
