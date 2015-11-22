@@ -37,10 +37,11 @@ potatoGet  = ->
   console.log(buildings)
 
 potatoTick = ->
+  modifier = 0
   for building in buildings
       modifier += building.getMod()*building.getNum()
   potatoCount += modifier*magicMultiplier
-  modifier = 0
+
 
 roundToTwo = (number) ->
   return Math.round(number*10)/10

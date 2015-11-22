@@ -1,31 +1,42 @@
 buildings = []
+
 class Building
-	constructor: (@name, @cost, @modifier) ->
+	constructor: (@name, @cost, @modifier, @buttonID, @bDesc) ->
 		@built = false
 		@amount = 0
-	calculatePrice: ->
-		console.log(@cost)
-		if @amount > 0
-			console.log("HAAAAAAAAAA")
-			@cost = @cost*1.15
-		return @cost
 	purchase: ->	
-		if potatoCount >= @calculatePrice()
+		console.log("ey")
+		if potatoCount >= @getCost()
 			@built = true
 			@amount+=1
-			potatoCount-=@cost
+			potatoCount-=@getCost()
+			@increaseCost()
 		else console.log("Not enough resources?")
-
 	getMod: ->
 		return @modifier
 	isBuilt: ->
 		return @built
 	getName: ->
 		return @name
+	getCost: ->
+		console.log(@cost)
+		return @cost
 	getNum: ->
 		return @amount
-upgradeInsert = (type, cost, modifier) ->
-	console.log("HEEEEEY")
+	getButtonId: ->
+		console.log @buttonID
+		return @buttonID
+	getDesc: ->
+		console.log @bDesc
+		return @bDesc
+	increaseCost: ->
+		@cost = @cost*1.15
+	setMod: (number) ->
+		@modifier = number
+
+
+buildingInsert = (type, cost, modifier, buttonID, bD) ->
+	console.log("KEK")
 	built = false
 	unless buildings.length == 0
 		for i in buildings
@@ -33,8 +44,7 @@ upgradeInsert = (type, cost, modifier) ->
 				i.purchase()
 				built = true
 	unless built
-		console.log("AYYYYYY")
-		temp = new Building(type, cost, modifier)
+		temp = new Building(type, cost, modifier, buttonID, bD)
 		buildings.push(temp)
 		temp.purchase()
 
