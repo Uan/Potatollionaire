@@ -106,6 +106,10 @@
       return this.modifier = number;
     };
 
+    Building.prototype.placeholder = function() {
+      return console.log("DO NOTHING");
+    };
+
     return Building;
 
   })();

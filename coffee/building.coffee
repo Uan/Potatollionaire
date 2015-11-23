@@ -29,7 +29,9 @@ class Building
 		@cost = @cost*1.15
 	setMod: (number) ->
 		@modifier = number
-
+	placeholder: ->
+		console.log "DO NOTHING"
+#placeholder
 
 buildingInsert = (type, cost, modifier, buttonID, bD) ->
 	built = false
