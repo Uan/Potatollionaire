@@ -15,7 +15,7 @@ class Spell
       setTimeout(@tick,1000)
     else @expiration()
   cast: =>
-    unless mana<@cost
+    unless mana<@cost && @duration_cur>0
       @duration_cur = @duration
       mana -=@cost
       @effect()
