@@ -1,4 +1,5 @@
-
+initMagic = ->
+  spells["golem"] = new SummonGolem
 class Spell
   constructor: (@name) ->
     @description

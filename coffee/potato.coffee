@@ -8,9 +8,11 @@ mana = 0
 spells = {}
 activeSpells = {}
 clickValue = 1
+totalClicks = 0
 
 initStuff = ->
-  spells["golem"] = new SummonGolem
+  initUpgrades()
+  initMagic()
   setInterval ->
     potatoTick()
     #copyMachine()
@@ -34,6 +36,7 @@ copyMachine = ->
 
 potatoGet  = ->
   potatoCount += clickValue
+  totalClicks += 1
   $( "#label").text("Potatoes: #{numberShortener(potatoCount)}")
   # console.log(buildings)
 
