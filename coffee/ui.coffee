@@ -32,6 +32,7 @@ $ ->
       spells["golem"].cast())
     $("#testUpgrade").on('click',->
       upgrades[0].purchase())
+      
   uiUpdate = ->
     for building in buildings
       $("#{building.getButtonId()}").attr("value", "#{building.getDesc()} : #{numberShortener(building.getCost())}")

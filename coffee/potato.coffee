@@ -1,15 +1,15 @@
-
-tickNum = 0
-potatoCount = 0
-cmTime = 50
-modifier = 0
-magicMultiplier = 1
-mana = 0
-spells = {}
-activeSpells = {}
-clickValue = 1
-totalClicks = 0
-
+game : {
+  tickNum : 0,
+  potatoCount : 0,
+  cmTime : 50,
+  modifier : 0,
+  magicMultiplier : 1,
+  mana : 0,
+  spells : {},
+  activeSpells : {},
+  clickValue : 1,
+  totalClicks : 0
+}
 initStuff = ->
   initUpgrades()
   initMagic()
