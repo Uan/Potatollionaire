@@ -12,6 +12,8 @@ game = {
 }
 initStuff = ->
   initUpgrades()
+  initBuildings()
+  initAchievements()
   initMagic()
   setInterval ->
     potatoTick()

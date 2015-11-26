@@ -23,8 +23,10 @@ $ ->
     #buildingInsert("copy_machine","user","bCopy"))
     $("#potatoGet").on("click", ->
       potatoGet())
+    ###the fuck is this
     $("button").on("click", ->
       uiUpdate())
+    ###
     $("#sacrifice1").on("click", ->
       sacrifice(1))
     $("#spell1").on("click", ->

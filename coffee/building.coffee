@@ -1,4 +1,5 @@
-game.buildings = []
+initBuildings = ->
+  game.buildings = []
 
 class Building
   constructor: (@name, @cost, @modifier, @buttonID, @bDesc) ->
