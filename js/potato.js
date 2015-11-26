@@ -148,7 +148,6 @@
   Spell = (function() {
     function Spell(name) {
       this.name = name;
-      this.cast = bind(this.cast, this);
       this.tick = bind(this.tick, this);
       this.expiration = bind(this.expiration, this);
       this.effect = bind(this.effect, this);
@@ -178,9 +177,9 @@
     };
 
     Spell.prototype.cast = function() {
-      if (!(mana < this.cost && this.duration_cur > 0)) {
+      if (game.mana >= this.cost && (this.duration_cur === 0 || (this.duration_cur == null))) {
         this.duration_cur = this.duration;
-        mana -= this.cost;
+        game.mana -= this.cost;
         return this.effect();
       }
     };
