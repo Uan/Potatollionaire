@@ -11,7 +11,7 @@ $ ->
   
   displayBuildings = ->
     $( "#resourceDisplay").text("")
-    for building in buildings
+    for building in game.buildings
         $( "#resourceDisplay").append("<p>#{building.getName()}: #{building.getNum()}</p>")
   listeners = ->
     $("#bFactory").on( "click", ->
@@ -29,17 +29,17 @@ $ ->
     $( "#sacrifice1" ).on( "click", ->
       sacrifice(1))
     $("#spell1").on("click", ->
-      spells["golem"].cast())
+      game.spells["golem"].cast())
     $("#testUpgrade").on('click',->
       upgrades[0].purchase())
       
   uiUpdate = ->
-    for building in buildings
+    for building in game.buildings
       $("#{building.getButtonId()}").attr("value", "#{building.getDesc()} : #{numberShortener(building.getCost())}")
-    $( "#label").text("Potatoes: #{numberShortener(potatoCount)}")
-    $( "#ps").text("Potatoes/second: #{numberShortener(modifier)}")
-    $("#mana").text("mana: #{mana}")
-    $("#spellmod").text("#{numberShortener magicMultiplier}")
+    $( "#label").text("Potatoes: #{numberShortener(game.potatoCount)}")
+    $( "#ps").text("Potatoes/second: #{numberShortener(game.modifier)}")
+    $("#mana").text("mana: #{game.mana}")
+    $("#spellmod").text("#{numberShortener game.magicMultiplier}")
     displayBuildings()
     # displayAchievements()
     #buttonValues()

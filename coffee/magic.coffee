@@ -1,5 +1,5 @@
 initMagic = ->
-  spells["golem"] = new SummonGolem
+  game.spells["golem"] = new SummonGolem
 class Spell
   constructor: (@name) ->
     @description
@@ -30,11 +30,11 @@ class SummonGolem extends Spell
   duration: 60
   effect: =>
     super
-    magicMultiplier +=0.15
+    game.magicMultiplier +=0.15
   expiration: =>
-    magicMultiplier -=0.15
+    game.magicMultiplier -=0.15
 
 sacrifice = (n) ->
-  unless potatoCount<n
-    mana+=n
-    potatoCount-=n 
+  unless game.potatoCount<n
+    game.mana+=n
+    game.potatoCount-=n

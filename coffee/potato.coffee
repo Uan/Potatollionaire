@@ -1,4 +1,4 @@
-game : {
+game = {
   tickNum : 0,
   potatoCount : 0,
   cmTime : 50,
@@ -19,10 +19,11 @@ initStuff = ->
     achievementCheck()
   , 1000
 
-  
+
+###
 copyMachine = ->
   if potatoUpgrades["copy_machine"] > 0
-    if tickNum >= cmTime
+    if tickNum >= game.cmTime
       prob = Math.floor(Math.random() * 100)
       tickNum = 0
       if prob <= 80
@@ -33,18 +34,19 @@ copyMachine = ->
         upgradeInsert("kappa","cm")
     else
       tickNum+=1
+###
 
 potatoGet  = ->
-  potatoCount += clickValue
-  totalClicks += 1
-  $( "#label").text("Potatoes: #{numberShortener(potatoCount)}")
+  game.potatoCount += game.clickValue
+  game.totalClicks += 1
+  $( "#label").text("Potatoes: #{numberShortener(game.potatoCount)}")
   # console.log(buildings)
 
 potatoTick = ->
   modifier = 0
-  for building in buildings
+  for building in game.buildings
       modifier += building.getMod()*building.getNum()
-  potatoCount += modifier*magicMultiplier
+  game.potatoCount += modifier*game.magicMultiplier
 
 
 round = (number,n) ->

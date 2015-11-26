@@ -2,13 +2,13 @@ upgrades=[]
 
 initUpgrades = ->
   upgrades[0] = new Upgrade("test",->
-    clickValue+=1
+    game.clickValue+=1
   ,->
-    totalClicks>0
+    game.totalClicks>0
   ,->
-    potatoCount-=10
+    game.potatoCount-=10
   ,->
-    potatoCount>=10
+    game.potatoCount>=10
   )
 
 class Upgrade

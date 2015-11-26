@@ -1,14 +1,14 @@
-buildings = []
+game.buildings = []
 
 class Building
 	constructor: (@name, @cost, @modifier, @buttonID, @bDesc) ->
 		@built = false
 		@amount = 0
 	purchase: ->	
-		if  @getCost() <= potatoCount
+		if  @getCost() <= game.potatoCount
 			@built = true
 			@amount+=1
-			potatoCount-=@getCost()
+			game.potatoCount-=@getCost()
 			@increaseCost()
 		else console.log("Not enough resources?")
 	getMod: ->
@@ -35,16 +35,16 @@ class Building
 
 buildingInsert = (type, cost, modifier, buttonID, bD) ->
 	built = false
-	unless buildings.length == 0
-		for i in buildings
+	unless game.buildings.length == 0
+		for i in game.buildings
 			if i.getName() == type
 				i.purchase()
 				built = true
 	unless built
 		temp = new Building(type, cost, modifier, buttonID, bD)
 		console.log(temp.getCost())
-		unless potatoCount < temp.getCost()
-			buildings.push(temp)
+		unless game.potatoCount < temp.getCost()
+			game.buildings.push(temp)
 			temp.purchase()
 
 
