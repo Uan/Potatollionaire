@@ -31,7 +31,7 @@ class Building
 		@modifier = number
 	placeholder: ->
 		console.log "DO NOTHING"
-#placeholder
+#placeholder#changes are on the desktop. Adjusting the copy machien to the current code woops wrong account .orrrr	
 
 buildingInsert = (type, cost, modifier, buttonID, bD) ->
 	built = false
