@@ -1,14 +1,14 @@
 game = {
-  tickNum : 0,
-  potatoCount : 0,
-  cmTime : 50,
-  modifier : 0,
-  magicMultiplier : 1,
-  mana : 0,
-  spells : {},
-  activeSpells : {},
-  clickValue : 1,
-  totalClicks : 0
+  tickNum: 0,
+  potatoCount: 0,
+  cmTime: 50,
+  modifier: 0,
+  magicMultiplier: 1,
+  mana: 0,
+  spells: {},
+  activeSpells: {},
+  clickValue: 1,
+  totalClicks: 0
 }
 initStuff = ->
   initUpgrades()
@@ -36,28 +36,28 @@ copyMachine = ->
       tickNum+=1
 ###
 
-potatoGet  = ->
+potatoGet = ->
   game.potatoCount += game.clickValue
   game.totalClicks += 1
-  $( "#label").text("Potatoes: #{numberShortener(game.potatoCount)}")
-  # console.log(buildings)
+  $("#label").text("Potatoes: #{numberShortener(game.potatoCount)}")
+# console.log(buildings)
 
 potatoTick = ->
   modifier = 0
   for building in game.buildings
-      modifier += building.getMod()*building.getNum()
-  game.potatoCount += modifier*game.magicMultiplier
+    modifier += building.getMod() * building.getNum()
+  game.potatoCount += modifier * game.magicMultiplier
 
 
-round = (number,n) ->
-  n ?=3 
-  return  Math.round number if n==1 
-  Math.round(number*(10**(n)))/(10**(n))
-    
+round = (number, n) ->
+  n ?=3
+  return  Math.round number if n == 1
+  Math.round(number * (10**(n))) / (10**(n))
+
 numberShortener = (number) ->
-  return round(number) if number<1000
-  arr = ['K','M','B','T','Qa','Qi']
+  return round(number) if number < 1000
+  arr = ['K', 'M', 'B', 'T', 'Qa', 'Qi']
   multiplier = 1
-  until (10**(3*(multiplier+1)))>number
-    multiplier+=1 
-  "#{round(number/(10**(multiplier*3)))}#{arr[multiplier-1]}"
+  until (10**(3 * (multiplier + 1))) > number
+    multiplier += 1
+  "#{round(number / (10**(multiplier * 3)))}#{arr[multiplier - 1]}"

@@ -5,22 +5,22 @@ class Spell
     @description
     @cost
     @duration
-    duration_cur :  0
+    duration_cur: 0
   effect: =>
     @tick()
   expiration: =>
-    @duration_cur=0 
+    @duration_cur = 0
   tick: =>
     if @duration_cur > 0
       @duration_cur -= 1
-      setTimeout(@tick,1000)
+      setTimeout(@tick, 1000)
     else @expiration()
   cast: =>
-    unless mana<@cost && @duration_cur>0
+    unless mana < @cost && @duration_cur > 0
       @duration_cur = @duration
-      mana -=@cost
+      mana -= @cost
       @effect()
-      
+
 
 class SummonGolem extends Spell
   constructor: ->
@@ -30,11 +30,11 @@ class SummonGolem extends Spell
   duration: 60
   effect: =>
     super
-    game.magicMultiplier +=0.15
+    game.magicMultiplier += 0.15
   expiration: =>
-    game.magicMultiplier -=0.15
+    game.magicMultiplier -= 0.15
 
 sacrifice = (n) ->
-  unless game.potatoCount<n
-    game.mana+=n
-    game.potatoCount-=n
+  unless game.potatoCount < n
+    game.mana += n
+    game.potatoCount -= n
